@@ -1,8 +1,6 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
 import { useLocale } from '@/stores/locale';
 
-const defaultLocale = 'ru';
-
 const routes = [
   {
     path: '/',
@@ -48,7 +46,6 @@ function generateLocaleRoutes(routes: RouteRecordRaw[]) {
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: generateLocaleRoutes(routes)
-  // routes
 });
 
 router.beforeEach(async (to, from, next) => {
@@ -60,11 +57,6 @@ router.beforeEach(async (to, from, next) => {
     const nextRoute = { name: to.name as string, params: { ...params, lang: locale.code } };
     return next(nextRoute);
   }
-
-  // if (params.lang === defaultLocale) {
-  //   const nextRoute = { name: to.name as string, params: { ...params, lang: '' } };
-  //   return next(nextRoute);
-  // }
 
   next();
 });
